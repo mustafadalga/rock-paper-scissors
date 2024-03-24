@@ -1,5 +1,5 @@
 import { useGameStore } from "@/store";
-import useAnimatedNumber from "@/hooks/useAnimatedNumber.ts";
+import useAnimatedNumber from "@/hooks/useAnimatedNumber";
 import { CHOICE_COLORS } from "@/constants";
 import { GameChoice, GameOutcome } from "@/enums";
 import { GameResult } from "@/types";

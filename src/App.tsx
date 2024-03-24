@@ -3,10 +3,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer } from 'react-toastify';
 import { useGameStore } from "@/store";
 import { fadeInUpAnimation } from "@/constants";
-import Header from "@/components/Header.tsx";
-import Bets from "@/components/Bets.tsx";
-import ButtonAction from "@/components/ButtonAction.tsx";
-import BetOutcome from "@/components/BetOutcome.tsx";
+import Header from "@/components/Header";
+import Bets from "@/components/Bets";
+import ButtonAction from "@/components/ButtonAction";
+import BetOutcome from "@/components/BetOutcome";
 
 
 function App() {

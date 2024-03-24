@@ -1,7 +1,7 @@
 import { Bet as IBet } from "@/store";
 import { GameChoice } from "@/enums";
 import { BET_AMOUNT } from "@/constants";
-import BetAmount from "./BetAmount.tsx";
+import BetAmount from "./BetAmount";
 
 interface Props {
     choice: GameChoice,

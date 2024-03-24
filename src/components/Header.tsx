@@ -1,5 +1,5 @@
 import { Bet, useGameStore } from "@/store";
-import useAnimatedNumber from "@/hooks/useAnimatedNumber.ts";
+import useAnimatedNumber from "@/hooks/useAnimatedNumber";
 
 export default function Header() {
     const { winAmount, balance, bets } = useGameStore();

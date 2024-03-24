@@ -1,4 +1,4 @@
-import useAnimatedNumber from "@/hooks/useAnimatedNumber.ts";
+import useAnimatedNumber from "@/hooks/useAnimatedNumber";
 
 export default function BetAmount({ amount }: { amount: number }) {
     return (

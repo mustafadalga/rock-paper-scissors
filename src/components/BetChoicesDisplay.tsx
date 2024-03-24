@@ -1,8 +1,8 @@
 import { useGameStore } from "@/store";
 import { useEffect } from "react";
-import determineOutcome from "@/utils/determineOutcome.ts";
+import determineOutcome from "@/utils/determineOutcome";
 import { GameChoice, GameOutcome } from "@/enums";
-import calculateReturn from "@/utils/calculateReturn.ts";
+import calculateReturn from "@/utils/calculateReturn";
 import { GameResult } from "@/types";
 
 export default function BetChoicesDisplay() {

@@ -4,8 +4,8 @@ import { useGameStore, Bet as IBet } from "@/store";
 import { CHOICE_COLORS, MAX_CHOICE_BET } from "@/constants";
 import { GameChoice, GameOutcome } from "@/enums";
 import { GameResult } from "@/types";
-import Bet from "./Bet.tsx";
-import BetsLabel from "./BetsLabel.tsx";
+import Bet from "./Bet";
+import BetsLabel from "./BetsLabel";
 
 function getBorderWidth(selectedChoice: GameChoice, computerChoice: GameChoice, {
     gameOutcome,
