@@ -22,7 +22,6 @@ export default function BetOutcome() {
     }, [winAmount]);
 
     useEffect(() => {
-        const showBetChoicesTimeout = setTimeout(toggleBetChoicesVisibility, 0);
         const hideBetChoicesTimeout = setTimeout(() => {
             toggleBetChoicesVisibility();
             setGameState(GameState.Finished);
@@ -30,11 +29,9 @@ export default function BetOutcome() {
         }, 2000);
 
         return () => {
-            clearTimeout(showBetChoicesTimeout)
             clearTimeout(hideBetChoicesTimeout);
         };
     }, []);
-
 
     return (
         <div className="h-24 grid">

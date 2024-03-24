@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import determineOutcome from "@/utils/determineOutcome.ts";
 import { GameChoice, GameOutcome } from "@/enums";
 import calculateReturn from "@/utils/calculateReturn.ts";
+import { GameResult } from "@/types";
 
 export default function BetChoicesDisplay() {
-    const { computerBet, bets, setGameOutcome, setWinAmount } = useGameStore();
+    const { computerBet, bets, setGameResult, setWinAmount } = useGameStore();
     const playerChoice: string = bets.map(bet => bet.choice).join(" + ");
-
 
     useEffect(() => {
         const handleCalculateReturn = (gameOutcome: GameOutcome) => {
@@ -16,9 +16,9 @@ export default function BetChoicesDisplay() {
         }
 
         const handleOutcome = () => {
-            const gameOutcome: GameOutcome = determineOutcome(bets.map(bet => bet.choice), computerBet as GameChoice);
-            setGameOutcome(gameOutcome);
-            handleCalculateReturn(gameOutcome)
+            const gameResult: GameResult = determineOutcome(bets.map(bet => bet.choice), computerBet as GameChoice);
+            setGameResult(gameResult);
+            handleCalculateReturn(gameResult.gameOutcome as GameOutcome)
         }
         handleOutcome()
     }, []);

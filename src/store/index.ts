@@ -1,6 +1,7 @@
 import { create, StoreApi } from 'zustand';
 import { devtools } from "zustand/middleware";
-import { GameChoice, GameOutcome, GameState } from "@/enums";
+import { GameChoice, GameState } from "@/enums";
+import { GameResult } from "@/types";
 
 export interface Bet {
     choice: GameChoice,
@@ -12,7 +13,7 @@ export interface State {
     winAmount: number,
     bets: Bet[],
     computerBet: GameChoice | null,
-    gameOutcome: GameOutcome | null,
+    gameResult: GameResult,
     showBetOutCome: boolean,
     showBetChoices: boolean,
     gameState: GameState,
@@ -24,7 +25,7 @@ export interface Actions {
     choiceBet: (bet: Bet) => void,
     choiceComputerBet: (computerBet: GameChoice) => void,
     updateBalance: (type: "increase" | "decrease", amount: number) => void,
-    setGameOutcome: (gameOutcome: GameOutcome) => void,
+    setGameResult: (gameResult: GameResult) => void,
     setWinAmount: (winAmount: number) => void,
     toggleBetOutComeVisibility: () => void,
     toggleBetChoicesVisibility: () => void,
@@ -38,9 +39,14 @@ const initialState: State = {
     winAmount: 0,
     bets: [],
     computerBet: null,
-    gameOutcome: null,
+    gameResult: {
+        gameOutcome: null,
+        isSingleBet: false,
+        tieBet: null,
+        winnerBet: null
+    },
     showBetOutCome: false,
-    showBetChoices: false,
+    showBetChoices: true,
     gameState: GameState.Started,
     isGameFinished: false
 }
@@ -63,9 +69,9 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
             balance: state.balance + (type == "increase" ? amount : -amount)
         }))
     },
-    setGameOutcome: (gameOutcome) => {
+    setGameResult: (gameResult) => {
         set(() => ({
-            gameOutcome
+            gameResult
         }))
     },
     setWinAmount: (winAmount) => {
@@ -98,8 +104,14 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
             winAmount: 0,
             bets: [],
             computerBet: null,
-            gameOutcome: null,
-            showBetChoices: false,
+            gameResult: {
+                gameOutcome: null,
+                isSingleBet: false,
+                tieBet: null,
+                winnerBet: null
+            },
+            showBetOutCome: false,
+            showBetChoices: true,
             gameState: GameState.Started,
             isGameFinished: false
         }))

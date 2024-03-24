@@ -2,19 +2,44 @@ import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { useGameStore, Bet as IBet } from "@/store";
 import { CHOICE_COLORS, MAX_CHOICE_BET } from "@/constants";
-import { GameChoice } from "@/enums";
+import { GameChoice, GameOutcome } from "@/enums";
+import { GameResult } from "@/types";
 import Bet from "./Bet.tsx";
 import BetsLabel from "./BetsLabel.tsx";
 
+function getBorderWidth(selectedChoice: GameChoice, computerChoice: GameChoice, {
+    gameOutcome,
+    tieBet,
+    isSingleBet,
+    winnerBet
+}: GameResult): string {
+    switch (gameOutcome) {
+        case GameOutcome.TIE: {
+            return "border-2";
+        }
+        case GameOutcome.WIN: {
+            return selectedChoice == winnerBet ? "border-4" : "border-2";
+        }
+        case GameOutcome.LOSS: {
+            if (selectedChoice == computerChoice && isSingleBet) {
+                return "border-4";
+            }
+            return tieBet ? "border-2" : selectedChoice == computerChoice ? "border-4" : "border-2";
+        }
+        default:
+            return "border-2";
+    }
+}
+
 export default function Bets() {
-    const { balance, bets, computerBet, choiceBet, isGameFinished, updateBalance } = useGameStore();
-    const selectedBetIds: GameChoice[] = bets.map(bet => bet.choice);
+    const { balance, bets, computerBet, gameResult, choiceBet, isGameFinished, updateBalance } = useGameStore();
+    const playerChoices: GameChoice[] = bets.map(bet => bet.choice);
     const choices = Object.values(GameChoice).map(choice => ({
         choice,
         ...CHOICE_COLORS[choice],
         amount: bets.filter(bet => bet.choice === choice).reduce((total: number, bet: IBet) => total + bet.amount, 0),
-        showBetAmount: selectedBetIds.includes(choice),
-        borderWidth: choice == computerBet ? "border-4" : "border-2",
+        showBetAmount: playerChoices.includes(choice),
+        borderWidth: getBorderWidth(choice, computerBet as GameChoice, gameResult),
     }));
 
     const selectedBetCount: number = bets.length;

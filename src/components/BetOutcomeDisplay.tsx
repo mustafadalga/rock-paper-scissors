@@ -1,29 +1,32 @@
 import { useGameStore } from "@/store";
 import useAnimatedNumber from "@/hooks/useAnimatedNumber.ts";
-import { CHOICE_COLORS, WIN_CONDITIONS } from "@/constants";
+import { CHOICE_COLORS } from "@/constants";
 import { GameChoice, GameOutcome } from "@/enums";
+import { GameResult } from "@/types";
 
-function determineTitle(playerChoices: GameChoice[], computerChoice: GameChoice, gameOutcome: GameOutcome): {
+function determineTitle(computerChoice: GameChoice, {
+    gameOutcome,
+    tieBet,
+    isSingleBet,
+    winnerBet
+}: GameResult): {
     className: string,
     title: string
 } {
     switch (gameOutcome) {
         case GameOutcome.TIE: {
-            const tieBet: GameChoice = playerChoices.find(playerChoice => playerChoice == computerChoice)!;
             return {
                 className: "text-gains-boro",
                 title: `Tie with ${tieBet}`
             }
         }
         case GameOutcome.WIN: {
-            const winnerBet: GameChoice = playerChoices.find(playerChoice => WIN_CONDITIONS[playerChoice].includes(computerChoice))!;
             return {
                 title: `${winnerBet} won`,
-                className: CHOICE_COLORS[winnerBet].textColor
+                className: CHOICE_COLORS[winnerBet as keyof typeof CHOICE_COLORS].textColor
             }
         }
         case GameOutcome.LOSS: {
-            const isSingleBet: boolean = playerChoices.length == 1;
             return {
                 title: isSingleBet ? `${computerChoice} won` : "Loss",
                 className: isSingleBet ? CHOICE_COLORS[computerChoice].textColor : "text-gains-boro"
@@ -38,12 +41,11 @@ function determineTitle(playerChoices: GameChoice[], computerChoice: GameChoice,
 }
 
 export function BetOutcomeDisplay() {
-    const { bets, computerBet, winAmount, gameOutcome } = useGameStore();
-    const betChoices: GameChoice[] = bets.map(bet => bet.choice);
+    const {  computerBet, winAmount, gameResult } = useGameStore();
     const {
         title,
         className
-    } = determineTitle(betChoices, computerBet as GameChoice, gameOutcome as GameOutcome)
+    } = determineTitle(computerBet as GameChoice, gameResult)
 
     return (
         <div className="grid place-items-center gap-5 uppercase font-semibold">

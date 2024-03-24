@@ -1,14 +1,32 @@
 import { WIN_CONDITIONS } from "@/constants";
 import { GameChoice, GameOutcome } from "@/enums";
+import { GameResult } from "@/types";
 
-export default function determineOutcome(playerChoices: GameChoice[], computerChoice: GameChoice): GameOutcome {
+
+export default function determineOutcome(playerChoices: GameChoice[], computerChoice: GameChoice): GameResult {
+    const isSingleBet = playerChoices.length === 1;
+
     if (playerChoices.includes(computerChoice)) {
-        const isSingleBet: boolean = playerChoices.length == 1;
-
-        return isSingleBet ? GameOutcome.TIE : GameOutcome.LOSS;
-    } else if (playerChoices.some(playerChoice => WIN_CONDITIONS[playerChoice].includes(computerChoice))) {
-        return GameOutcome.WIN
+        return {
+            gameOutcome: isSingleBet ? GameOutcome.TIE : GameOutcome.LOSS,
+            isSingleBet,
+            tieBet: computerChoice || null,
+        }
     }
 
-    return GameOutcome.LOSS;
+    const winnerBet: GameChoice | undefined = playerChoices.find(playerChoice => WIN_CONDITIONS[playerChoice].includes(computerChoice));
+
+    if (winnerBet) {
+        return {
+            gameOutcome: GameOutcome.WIN,
+            isSingleBet,
+            winnerBet
+        }
+    }
+
+    return {
+        gameOutcome: GameOutcome.LOSS,
+        isSingleBet,
+        winnerBet: null
+    }
 }
