@@ -1,4 +1,5 @@
 import { useGameStore } from "@/store";
+import useAnimatedNumber from "@/hooks/useAnimatedNumber.ts";
 import { CHOICE_COLORS } from "@/constants";
 import { GameChoice } from "@/enums";
 
@@ -12,7 +13,7 @@ export function BetOutcomeDisplay() {
             <h1 className={`${titleTextColorClassName} text-5xl`}> {computerBet} won </h1>
             <h3 className="text-xl">
                 <span className="text-burly-wood">You win</span>
-                <span className="text-gains-boro"> {winAmount} </span>
+                <span className="text-gains-boro"> {useAnimatedNumber(winAmount)} </span>
             </h3>
         </div>
     )
