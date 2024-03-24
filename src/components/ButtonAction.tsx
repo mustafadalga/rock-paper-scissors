@@ -6,7 +6,7 @@ export default function ButtonAction() {
     const { isGameFinished, finishGame, newGame, bets, choiceComputerBet, gameState, setGameState } = useGameStore();
     const hasSelectedBet: boolean = bets.length > 0;
     const isGamePending: boolean = gameState === GameState.Pending;
-    const buttonClassName: string = `w-[10.25rem] h-[4.5rem] ${isGamePending ? "text-burly-wood/25 bg-cod-gray/25 border-burly-wood/25" : "text-burly-wood bg-cod-gray border-burly-wood"}  border-2 border-solid  rounded-[2rem]`
+    const buttonClassName: string = `${isGamePending ? "text-burly-wood/25 bg-cod-gray/25 border-burly-wood/25" : "text-burly-wood bg-cod-gray border-burly-wood"} w-[10.25rem] h-[4.5rem] border-2 border-solid rounded-[2rem] hover:shadow-[0px_0px_4px] hover:shadow-burly-wood transition-all duration-300`;
     const buttonText: string = isGameFinished && !isGamePending ? "Clear" : "Play";
 
     const handleComputerBet = () => {
