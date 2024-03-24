@@ -1,6 +1,7 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { Bet as IBet } from "@/store";
 import { GameChoice } from "@/enums";
-import { BET_AMOUNT } from "@/constants";
+import { BET_AMOUNT, fadeInUpAnimation } from "@/constants";
 import BetAmount from "./BetAmount";
 
 interface Props {
@@ -32,7 +33,12 @@ export default function Bet({
                 onClick={() => onClick({ choice, amount: BET_AMOUNT })}
                 className={containerClassName}>
 
-            {showBetAmount && <BetAmount amount={amount}/>}
+            <AnimatePresence mode="wait">
+                {showBetAmount && <motion.div {...fadeInUpAnimation}>
+                    <BetAmount amount={amount}/>
+                </motion.div>}
+            </AnimatePresence>
+
             <div className={textClassName}> {choice} </div>
 
         </button>
