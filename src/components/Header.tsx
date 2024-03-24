@@ -7,7 +7,7 @@ export default function Header() {
 
     return (
         <div className="flex justify-center h-7 bg-cod-gray">
-            <div className="flex items-center gap-10 text-base">
+            <div className="flex items-center gap-10 text-sm lg:text-base">
                 <h4>
                     <span className="text-burly-wood uppercase">BALANCE :</span>
                     <span className="text-gains-boro"> {useAnimatedNumber(balance)} </span>

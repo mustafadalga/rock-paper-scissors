@@ -70,7 +70,7 @@ export default function Bets() {
         <div className="grid place-items-center content-end gap-4">
             {showLabel ? <BetsLabel/> : <div className="h-6"/>}
 
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-2 md:gap-3 lg:gap-4">
                 {choices.map(choice => <Bet key={choice.choice}
                                             {...choice}
                                             onClick={onChoice}/>)}

@@ -24,8 +24,8 @@ export default function Bet({
                                 borderWidth,
                                 onClick
                             }: Props) {
-    const containerClassName = `${backgroundColor} ${borderColor} ${borderWidth} grid place-items-center content-end gap-3 w-[10.25rem] h-32 p-5 border-solid transition-all duration-300 rounded-md hover:scale-105`;
-    const textClassName = `${textColor} uppercase text-xl font-semibold`;
+    const containerClassName = `${backgroundColor} ${borderColor} ${borderWidth} grid place-items-center content-end gap-2 lg:gap-3 w-20 h-20 md:w-24 md:h-24 lg:w-[10.25rem] lg:h-32 p-1 md:m-2 lg:p-5 border-solid transition-all duration-300 rounded-md hover:scale-105`;
+    const textClassName = `${textColor} uppercase text-xs md:text-base lg:text-xl font-semibold`;
 
     return (
         <button type="button"

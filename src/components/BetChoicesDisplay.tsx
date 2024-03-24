@@ -24,7 +24,7 @@ export default function BetChoicesDisplay() {
     }, []);
 
     return (
-        <div className="flex gap-16 text-4xl font-semibold">
+        <div className="flex flex-col lg:flex-row items-center gap-1 lg:gap-16 text-2xl md:text-3xl lg:text-4xl font-semibold">
             <h2 className="text-gains-boro uppercase"> {computerBet} </h2>
             <h2 className="text-burly-wood lowercase"> vs </h2>
             <h2 className="text-gains-boro uppercase"> {playerChoice} </h2>

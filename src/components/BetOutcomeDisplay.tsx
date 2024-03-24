@@ -49,7 +49,7 @@ export function BetOutcomeDisplay() {
 
     return (
         <div className="grid place-items-center gap-5 uppercase font-semibold">
-            <h1 className={`${className} text-5xl`}> {title}</h1>
+            <h1 className={`${className} text-3xl md:text-4xl lg:text-5xl`}> {title}</h1>
             <h3 className="text-xl">
                 <span className="text-burly-wood">You win</span>
                 <span className="text-gains-boro"> {useAnimatedNumber(winAmount)} </span>
