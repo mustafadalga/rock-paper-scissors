@@ -13,6 +13,7 @@ export interface State {
     bets: Bet[],
     computerBet: GameChoice | null,
     gameOutcome: GameOutcome | null,
+    showBetOutCome: boolean,
     showBetChoices: boolean,
     gameState: GameState,
     isGameFinished: boolean,
@@ -25,6 +26,7 @@ export interface Actions {
     updateBalance: (type: "increase" | "decrease", amount: number) => void,
     setGameOutcome: (gameOutcome: GameOutcome) => void,
     setWinAmount: (winAmount: number) => void,
+    toggleBetOutComeVisibility: () => void,
     toggleBetChoicesVisibility: () => void,
     setGameState: (gameState: GameState) => void,
     finishGame: () => void,
@@ -37,6 +39,7 @@ const initialState: State = {
     bets: [],
     computerBet: null,
     gameOutcome: null,
+    showBetOutCome: false,
     showBetChoices: false,
     gameState: GameState.Started,
     isGameFinished: false
@@ -57,7 +60,7 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
     },
     updateBalance: (type: "increase" | "decrease", amount: number) => {
         set((state) => ({
-            balance: state.balance + (type === "increase" ? amount : -amount)
+            balance: state.balance + (type == "increase" ? amount : -amount)
         }))
     },
     setGameOutcome: (gameOutcome) => {
@@ -68,6 +71,11 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
     setWinAmount: (winAmount) => {
         set(() => ({
             winAmount
+        }))
+    },
+    toggleBetOutComeVisibility: () => {
+        set((state) => ({
+            showBetOutCome: !state.showBetOutCome
         }))
     },
     toggleBetChoicesVisibility: () => {
@@ -86,8 +94,7 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
         }))
     },
     newGame: () => {
-        set((state) => ({
-            balance: state.balance + state.winAmount,
+        set(() => ({
             winAmount: 0,
             bets: [],
             computerBet: null,

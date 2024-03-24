@@ -1,4 +1,12 @@
+import { Variants } from 'framer-motion';
 import { GameChoice } from "@/enums";
+
+export interface ChoiceColors {
+    textColor: string;
+    backgroundColor: string;
+    borderColor: string;
+}
+
 
 export const BET_AMOUNT: number = 500;
 export const MAX_CHOICE_BET: number = 2
@@ -9,7 +17,7 @@ export const WIN_CONDITIONS: Record<GameChoice, GameChoice[]> = {
     [GameChoice.Scissors]: [ GameChoice.Paper ],
 };
 
-export const CHOICE_COLORS = {
+export const CHOICE_COLORS: Record<GameChoice, ChoiceColors> = {
     [GameChoice.Rock]: {
         textColor: "text-dodger-blue",
         backgroundColor: "bg-midnight-blue",
@@ -26,3 +34,9 @@ export const CHOICE_COLORS = {
         borderColor: "border-crimson",
     }
 }
+
+export const fadeInUpAnimation: Variants = {
+    initial: { opacity: 0, y: -10, transition: { duration: 0.5 } },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.5 } }
+};

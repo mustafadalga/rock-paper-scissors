@@ -1,29 +1,59 @@
-import BetChoicesDisplay from "./BetChoicesDisplay.tsx";
-import { BetOutcomeDisplay } from "./BetOutcomeDisplay.tsx";
+import { useEffect, useRef } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
 import { useGameStore } from "@/store";
-import { useEffect } from "react";
 import { GameState } from "@/enums";
+import { fadeInUpAnimation } from "@/constants";
+import BetChoicesDisplay from "./BetChoicesDisplay";
+import { BetOutcomeDisplay } from "./BetOutcomeDisplay";
+
 
 export default function BetOutcome() {
-    const { showBetChoices, toggleBetChoicesVisibility, setGameState } = useGameStore();
+    const {
+        showBetChoices,
+        winAmount,
+        toggleBetChoicesVisibility,
+        setGameState,
+        updateBalance,
+    } = useGameStore();
+    const winAmountRef = useRef<number>(winAmount);
+
+    useEffect(() => {
+        winAmountRef.current = winAmount;
+    }, [winAmount]);
 
     useEffect(() => {
         const showBetChoicesTimeout = setTimeout(toggleBetChoicesVisibility, 0);
         const hideBetChoicesTimeout = setTimeout(() => {
             toggleBetChoicesVisibility();
             setGameState(GameState.Finished);
-        }, 1500);
+            updateBalance("increase", winAmountRef.current);
+        }, 2000);
 
         return () => {
             clearTimeout(showBetChoicesTimeout)
-            clearTimeout(hideBetChoicesTimeout)
+            clearTimeout(hideBetChoicesTimeout);
         };
     }, []);
 
 
     return (
         <div className="h-24 grid">
-            { showBetChoices ? <BetChoicesDisplay/> : <BetOutcomeDisplay/> }
+            <AnimatePresence mode="wait">
+                {showBetChoices ? (
+                    <motion.div
+                        key="betChoices"
+                        {...fadeInUpAnimation}>
+                        <BetChoicesDisplay/>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="betOutcome"
+                        {...fadeInUpAnimation}>
+                        <BetOutcomeDisplay/>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     )
 }
