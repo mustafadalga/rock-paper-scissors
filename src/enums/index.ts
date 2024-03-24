@@ -4,8 +4,14 @@ export enum GameChoice {
     Scissors = "scissors",
 }
 
+export enum GameOutcome {
+    TIE,
+    WIN,
+    LOSS
+}
+
 export enum GameState {
-    Win = "win",
-    Lose = "lose",
-    Tie = "tie",
+    Pending,
+    Started,
+    Finished
 }

@@ -3,13 +3,13 @@ import { GameChoice } from "@/enums";
 export const BET_AMOUNT: number = 500;
 export const MAX_CHOICE_BET: number = 2
 
-export const OUTCOMES: Record<GameChoice, GameChoice[]> = {
+export const WIN_CONDITIONS: Record<GameChoice, GameChoice[]> = {
     [GameChoice.Rock]: [ GameChoice.Scissors ],
     [GameChoice.Paper]: [ GameChoice.Rock ],
     [GameChoice.Scissors]: [ GameChoice.Paper ],
 };
 
-export const CHOICE_BUTTONS_COLORS = {
+export const CHOICE_COLORS = {
     [GameChoice.Rock]: {
         textColor: "text-dodger-blue",
         backgroundColor: "bg-midnight-blue",
