@@ -7,7 +7,8 @@ import { GameResult } from "@/types";
 
 export default function BetChoicesDisplay() {
     const { computerBet, bets, setGameResult, setWinAmount } = useGameStore();
-    const playerChoice: string = bets.map(bet => bet.choice).join(" + ");
+    const positions = new Set<GameChoice>(bets.map(bet => bet.choice));
+    const playerChoice: string = [ ...positions ].join(" + ");
 
     useEffect(() => {
         const handleCalculateReturn = (gameOutcome: GameOutcome) => {
