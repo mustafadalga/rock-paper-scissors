@@ -67,7 +67,7 @@ export default function Bets() {
     }, [ isGameFinished, selectedBetCount, balance, bets, choiceBet, updateBalance ]);
 
     return (
-        <div className="grid place-items-center content-end gap-4">
+        <section className="grid place-items-center content-end gap-4">
             {showLabel ? <BetsLabel/> : <div className="h-6"/>}
 
             <div className="flex justify-center gap-2 md:gap-3 lg:gap-4">
@@ -75,6 +75,6 @@ export default function Bets() {
                                             {...choice}
                                             onClick={onChoice}/>)}
             </div>
-        </div>
+        </section>
     )
 }

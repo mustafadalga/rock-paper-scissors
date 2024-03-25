@@ -6,7 +6,7 @@ export default function Header() {
     const totalBetAmount: number = bets.reduce((total: number, bet: Bet) => total + bet.amount, 0);
 
     return (
-        <div className="flex justify-center h-7 bg-cod-gray">
+        <header className="flex justify-center h-7 bg-cod-gray">
             <div className="flex items-center gap-10 text-sm lg:text-base">
                 <h4>
                     <span className="text-burly-wood uppercase">BALANCE :</span>
@@ -21,6 +21,6 @@ export default function Header() {
                     <span className="text-gains-boro"> {useAnimatedNumber(winAmount)} </span>
                 </h4>
             </div>
-        </div>
+        </header>
     )
 }

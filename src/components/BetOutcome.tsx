@@ -34,7 +34,7 @@ export default function BetOutcome() {
     }, []);
 
     return (
-        <div className="h-24 grid">
+        <section className="h-24 grid">
             <AnimatePresence mode="wait">
                 {showBetChoices ? (
                     <motion.div
@@ -51,6 +51,6 @@ export default function BetOutcome() {
                 )}
             </AnimatePresence>
 
-        </div>
+        </section>
     )
 }
