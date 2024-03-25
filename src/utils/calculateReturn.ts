@@ -10,7 +10,7 @@ export default function calculateReturn(bets: Bet[], gameOutcome: GameOutcome): 
     const multiplier: number = isSingleBet ? singleBetRate : twoBetRate;
 
     if (gameOutcome == GameOutcome.WIN) {
-        return totalBetAmount + totalBetAmount * multiplier;
+        return totalBetAmount * multiplier;
     } else if (gameOutcome == GameOutcome.TIE && isSingleBet) {
         return totalBetAmount;
     }
