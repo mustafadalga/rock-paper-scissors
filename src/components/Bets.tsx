@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { useGameStore, Bet as IBet } from "@/store";
 import { CHOICE_COLORS, MAX_CHOICE_BET } from "@/constants";
-import { GameChoice, GameOutcome } from "@/enums";
+import { GameChoice, GameOutcome, GameState } from "@/enums";
 import { GameResult } from "@/types";
 import Bet from "./Bet";
 import BetsLabel from "./BetsLabel";
@@ -10,7 +10,7 @@ import BetsLabel from "./BetsLabel";
 function getBorderWidth(selectedChoice: GameChoice, computerChoice: GameChoice, {
     gameOutcome,
     tieBet,
-    isSingleBet,
+    isSinglePosition,
     winnerBet
 }: GameResult): string {
     switch (gameOutcome) {
@@ -21,7 +21,7 @@ function getBorderWidth(selectedChoice: GameChoice, computerChoice: GameChoice, 
             return selectedChoice == winnerBet ? "border-4" : "border-2";
         }
         case GameOutcome.LOSS: {
-            if (selectedChoice == computerChoice && isSingleBet) {
+            if (selectedChoice == computerChoice && isSinglePosition) {
                 return "border-4";
             }
             return tieBet ? "border-2" : selectedChoice == computerChoice ? "border-4" : "border-2";
@@ -32,7 +32,16 @@ function getBorderWidth(selectedChoice: GameChoice, computerChoice: GameChoice, 
 }
 
 export default function Bets() {
-    const { balance, bets, computerBet, gameResult, choiceBet, isGameFinished, updateBalance } = useGameStore();
+    const {
+        balance,
+        bets,
+        computerBet,
+        gameResult,
+        gameState,
+        choiceBet,
+        isGameFinished,
+        updateBalance
+    } = useGameStore();
     const playerChoices: GameChoice[] = bets.map(bet => bet.choice);
     const choices = Object.values(GameChoice).map(choice => ({
         choice,
@@ -46,9 +55,9 @@ export default function Bets() {
     const showLabel: boolean = selectedBetCount == 0;
 
     const onChoice = useCallback((chosenBet: IBet): void => {
-        const positions = new Set<GameChoice>(playerChoices);
+        if (isGameFinished || gameState != GameState.Started) return;
 
-        if (isGameFinished) return;
+        const positions = new Set<GameChoice>(playerChoices);
 
         if (positions.size >= MAX_CHOICE_BET && !positions.has(chosenBet.choice)) {
             toast.info("Just a heads up! You can bet on up to 2 positions per game. Please adjust your bets accordingly.");
@@ -65,8 +74,7 @@ export default function Bets() {
         choiceBet(chosenBet);
         updateBalance("decrease", chosenBet.amount);
 
-
-    }, [ isGameFinished, balance, playerChoices, choiceBet, updateBalance ]);
+    }, [ isGameFinished, gameState, balance, playerChoices, choiceBet, updateBalance ]);
 
     return (
         <section className="grid place-items-center content-end gap-4">

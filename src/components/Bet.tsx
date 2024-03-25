@@ -25,7 +25,7 @@ export default function Bet({
                                 borderWidth,
                                 onClick
                             }: Props) {
-    const containerClassName = `${backgroundColor} ${borderColor} ${borderWidth} grid place-items-center content-end gap-2 lg:gap-3 w-20 h-20 md:w-24 md:h-24 lg:w-[10.25rem] lg:h-32 p-1 md:m-2 lg:p-5 border-solid transition-all duration-300 rounded-md hover:scale-105`;
+    const containerClassName = `${backgroundColor} ${borderColor} ${borderWidth} grid place-items-center content-end gap-2 lg:gap-3 w-20 min-h-24 md:w-[10.25rem] md:h-32 p-1 md:p-2 lg:p-2.5 border-solid transition-all duration-300 rounded-md hover:scale-105`;
     const textClassName = `${textColor} uppercase text-xs md:text-base lg:text-xl font-semibold`;
 
     return (
@@ -33,7 +33,7 @@ export default function Bet({
                 onClick={() => onClick({ choice, amount: BET_AMOUNT })}
                 className={containerClassName}>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
                 {showBetAmount && <motion.div {...fadeInUpAnimation}>
                     <BetAmount amount={amount}/>
                 </motion.div>}

@@ -1,6 +1,7 @@
 import { useGameStore } from "@/store";
 import useAnimatedNumber from "@/hooks/useAnimatedNumber";
-import { CHOICE_COLORS } from "@/constants";
+import formatNumber from "@/utils/formatNumber"
+import { CHOICE_COLORS, MAXIMUM_THRESHOLD_FOR_ANIMATED_NUMBER } from "@/constants";
 import { GameChoice, GameOutcome } from "@/enums";
 import { GameResult } from "@/types";
 
@@ -41,18 +42,20 @@ function determineTitle(computerChoice: GameChoice, {
 }
 
 export function BetOutcomeDisplay() {
-    const {  computerBet, winAmount, gameResult } = useGameStore();
+    const { computerBet, winAmount, gameResult } = useGameStore();
     const {
         title,
         className
-    } = determineTitle(computerBet as GameChoice, gameResult)
+    } = determineTitle(computerBet as GameChoice, gameResult);
+    const animatedWinAmount: string = useAnimatedNumber(winAmount);
+    const winAmountNumber: string = winAmount < MAXIMUM_THRESHOLD_FOR_ANIMATED_NUMBER ? animatedWinAmount : formatNumber(winAmount);
 
     return (
         <div className="grid place-items-center gap-5 uppercase font-semibold">
             <h1 className={`${className} text-3xl md:text-4xl lg:text-5xl`}> {title}</h1>
             <h3 className="text-xl">
                 <span className="text-burly-wood">You win</span>
-                <span className="text-gains-boro"> {useAnimatedNumber(winAmount)} </span>
+                <span className="text-gains-boro"> {winAmountNumber} </span>
             </h3>
         </div>
     )

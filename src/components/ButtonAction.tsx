@@ -32,15 +32,14 @@ export default function ButtonAction() {
             toast.info("Ready to play? Please place at least one bet to start the game. Good luck!");
             return
         }
-        if (isGameFinished) {
-            toggleBetOutComeVisibility();
-            return;
-        }
 
         setGameState(GameState.Pending);
-        toggleBetOutComeVisibility();
-        finishGame();
-        handleComputerBet();
+        toggleBetOutComeVisibility()
+
+        if (!isGameFinished) {
+            finishGame();
+            handleComputerBet();
+        }
     }
 
     return (

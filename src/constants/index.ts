@@ -9,7 +9,9 @@ export interface ChoiceColors {
 
 
 export const BET_AMOUNT: number = 500;
-export const MAX_CHOICE_BET: number = 2
+export const MAX_CHOICE_BET: number = 2;
+export const MAXIMUM_THRESHOLD_FOR_ANIMATED_NUMBER: number = 99999;
+
 
 export const WIN_CONDITIONS: Record<GameChoice, GameChoice[]> = {
     [GameChoice.Rock]: [ GameChoice.Scissors ],
