@@ -4,12 +4,13 @@ import { GameResult } from "@/types";
 
 
 export default function determineOutcome(playerChoices: GameChoice[], computerChoice: GameChoice): GameResult {
-    const isSingleBet = playerChoices.length === 1;
+    const positions = new Set<GameChoice>(playerChoices);
+    const isSinglePosition = positions.size == 1;
 
     if (playerChoices.includes(computerChoice)) {
         return {
-            gameOutcome: isSingleBet ? GameOutcome.TIE : GameOutcome.LOSS,
-            isSingleBet,
+            gameOutcome: isSinglePosition ? GameOutcome.TIE : GameOutcome.LOSS,
+            isSinglePosition,
             tieBet: computerChoice || null,
         }
     }
@@ -19,14 +20,14 @@ export default function determineOutcome(playerChoices: GameChoice[], computerCh
     if (winnerBet) {
         return {
             gameOutcome: GameOutcome.WIN,
-            isSingleBet,
+            isSinglePosition,
             winnerBet
         }
     }
 
     return {
         gameOutcome: GameOutcome.LOSS,
-        isSingleBet,
+        isSinglePosition,
         winnerBet: null
     }
 }

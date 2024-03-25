@@ -7,7 +7,7 @@ import { GameResult } from "@/types";
 function determineTitle(computerChoice: GameChoice, {
     gameOutcome,
     tieBet,
-    isSingleBet,
+    isSinglePosition,
     winnerBet
 }: GameResult): {
     className: string,
@@ -28,8 +28,8 @@ function determineTitle(computerChoice: GameChoice, {
         }
         case GameOutcome.LOSS: {
             return {
-                title: isSingleBet ? `${computerChoice} won` : "Loss",
-                className: isSingleBet ? CHOICE_COLORS[computerChoice].textColor : "text-gains-boro"
+                title: isSinglePosition ? `${computerChoice} won` : "Loss",
+                className: isSinglePosition ? CHOICE_COLORS[computerChoice].textColor : "text-gains-boro"
             }
         }
         default:

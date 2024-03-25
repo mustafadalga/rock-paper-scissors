@@ -41,7 +41,7 @@ const initialState: State = {
     computerBet: null,
     gameResult: {
         gameOutcome: null,
-        isSingleBet: false,
+        isSinglePosition: false,
         tieBet: null,
         winnerBet: null
     },
@@ -106,7 +106,7 @@ const createState = (set: StoreApi<State & Actions>["setState"]): State & Action
             computerBet: null,
             gameResult: {
                 gameOutcome: null,
-                isSingleBet: false,
+                isSinglePosition: false,
                 tieBet: null,
                 winnerBet: null
             },

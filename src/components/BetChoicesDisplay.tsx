@@ -11,15 +11,15 @@ export default function BetChoicesDisplay() {
     const playerChoice: string = [ ...positions ].join(" + ");
 
     useEffect(() => {
-        const handleCalculateReturn = (gameOutcome: GameOutcome) => {
-            const winAmount: number = calculateReturn(bets, gameOutcome);
+        const handleCalculateReturn = (gameOutcome: GameOutcome, isSinglePosition: boolean) => {
+            const winAmount: number = calculateReturn(bets, gameOutcome, isSinglePosition);
             setWinAmount(winAmount);
         }
 
         const handleOutcome = () => {
             const gameResult: GameResult = determineOutcome(bets.map(bet => bet.choice), computerBet as GameChoice);
             setGameResult(gameResult);
-            handleCalculateReturn(gameResult.gameOutcome as GameOutcome)
+            handleCalculateReturn(gameResult.gameOutcome as GameOutcome, gameResult.isSinglePosition)
         }
         handleOutcome()
     }, []);
