@@ -46,14 +46,16 @@ export default function Bets() {
     const showLabel: boolean = selectedBetCount == 0;
 
     const onChoice = useCallback((chosenBet: IBet): void => {
+        const positions = new Set<GameChoice>(playerChoices);
+
         if (isGameFinished) return;
-        if (selectedBetCount >= MAX_CHOICE_BET) {
+
+        if (positions.size >= MAX_CHOICE_BET && !positions.has(chosenBet.choice)) {
             toast.info("Just a heads up! You can bet on up to 2 positions per game. Please adjust your bets accordingly.");
             return;
         }
 
-        const totalBetAmount: number = bets.reduce((total: number, bet: IBet) => total + bet.amount, 0) + chosenBet.amount;
-        const hasBalance: boolean = balance >= totalBetAmount;
+        const hasBalance: boolean = !!balance && balance >= chosenBet.amount;
 
         if (!hasBalance) {
             toast.warn("Oops! It looks like your balance isn't enough to place a bet. Please add funds to continue playing.");
@@ -64,7 +66,7 @@ export default function Bets() {
         updateBalance("decrease", chosenBet.amount);
 
 
-    }, [ isGameFinished, selectedBetCount, balance, bets, choiceBet, updateBalance ]);
+    }, [ isGameFinished, balance, playerChoices, choiceBet, updateBalance ]);
 
     return (
         <section className="grid place-items-center content-end gap-4">
