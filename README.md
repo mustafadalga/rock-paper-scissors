@@ -26,7 +26,6 @@ Rock Paper Scissors is a web-based rock, paper, scissors game that allows users 
 
 ### Used Technologies
 * React.js
-* TailwindCSS
 * Typescript
 * Tailwind CSS
 * framer-motion
